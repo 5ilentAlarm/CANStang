@@ -23,7 +23,6 @@ Need to select a microcontroller capable of CAN, SPI, and I2C at the minimum. Ev
 - STM32G431RB
     - $3.90
     - 3x I2C, 3x SPI, 1x CANFD
-
 - Renesas RA4M1
 - SAME51J20A
 - LPC1800
