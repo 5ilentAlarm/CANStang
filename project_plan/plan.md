@@ -47,14 +47,28 @@ The STM32G431XX series chips is the one I'm going with. This is due to cost, sin
 - 170MHz clock speed
 - Has cheaper variants that are available (as of December 2024)
 ### LED Strip
-It'll be wortwhile to just get a small LED strip, using WS2812b's or similar, that can be trimmed down if needed. These can then be put onto the final PCB as well. 
+It'll be wortwhile to just get a small LED strip, using WS2812b's or similar, that can be trimmed down if needed. 
+These can then be put onto the final PCB as well. 
+
+[WS2812B Strip](https://www.amazon.com/WS2812B-Individual-Addressable-144Pixels-Non-Waterproof/dp/B09PBGZMNS?)
 
 ### HUD Components
+The plan is to mount an OLED screen onto the PCB, and place this towards the front of the dash
+, under the windshield. A small reflective screen will be stuck to the windshield to reflect the values. 
+
  1. Reflective HUD screen for the Car windshield, can trim this down
+    - [HUD Reflector](https://www.amazon.com/Xbes-Reflective-Windshield-Protective-5-9X5-1Inch/dp/B075DBXL9Z?)
  2. Decide between OLED or 7-Segment display for RPM / Speed
+    - [OLED 128x32](https://www.amazon.com/MakerFocus-Display-SSD1306-3-3V-5V-Arduino/dp/B079BN2J8V?)
 
 # Architecture
+<img src="images/High-level-Architecture.png" alt="Car" width="600"/>
+
 
 # Resources
 [S550 Mustang GT CAN Id list](CAN_IDs.md)
+
+[SSD1306 STM32 Library](https://github.com/afiskon/stm32-ssd1306)
+
+[Another SSD1306 Library](https://github.com/4ilo/ssd1306-stm32HAL?tab=readme-ov-file)
 
