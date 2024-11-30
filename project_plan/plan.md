@@ -66,7 +66,7 @@ The plan is to mount an OLED screen onto the PCB, and place this towards the fro
 
 
 # Resources
-[S550 Mustang GT CAN Id list](CAN_IDs.md)
+[S550 Mustang GT CAN Id list](Users/sebastian/Development/Embedded/CANStang/Docs/CAN_IDs.md)
 
 [SSD1306 STM32 Library](https://github.com/afiskon/stm32-ssd1306)
 
