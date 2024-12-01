@@ -70,6 +70,7 @@ ASMM_SOURCES =
 #######################################
 # binaries
 #######################################
+GCC_PATH = /opt/homebrew/bin/
 PREFIX = arm-none-eabi-
 # The gcc compiler bin path can be either defined in make command via GCC_PATH variable (> make GCC_PATH=xxx)
 # either it can be added to the PATH environment variable.
@@ -184,13 +185,37 @@ $(BUILD_DIR)/%.bin: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
 	$(BIN) $< $@	
 	
 $(BUILD_DIR):
-	mkdir $@		
+	mkdir $@	
+
+#######################################
+# build
+#######################################	
+build: build/firmware.bin
+
+#######################################
+# build binary
+#######################################
+build/firmware.bin: build/firmware.elf
+	$(BIN) $< $@	
+
+#######################################
+# build binary
+#######################################
+build/firmware.elf: $(OBJECTS) Makefile
+	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+	$(SZ) $@	
 
 #######################################
 # clean up
 #######################################
 clean:
 	-rm -fR $(BUILD_DIR)
+
+#######################################
+# Make Flash
+#######################################
+flash: build/firmware.bin 
+	st-flash --reset write $< 0x8000000
   
 #######################################
 # dependencies
