@@ -20,6 +20,7 @@
 #include "main.h"
 #include "fdcan.h"
 #include "gpio.h"
+#include "main_entry.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -89,6 +90,7 @@ int main(void)
   MX_GPIO_Init();
   MX_FDCAN1_Init();
   /* USER CODE BEGIN 2 */
+  main_entry_func();
 
   /* USER CODE END 2 */
 
