@@ -188,13 +188,10 @@ $(BUILD_DIR):
 	mkdir $@	
 
 #######################################
-# build
-#######################################	
-build: build/firmware.bin
+# build 
+#######################################
+compile: build/firmware.bin
 
-#######################################
-# build binary
-#######################################
 build/firmware.bin: build/firmware.elf
 	$(BIN) $< $@	
 
