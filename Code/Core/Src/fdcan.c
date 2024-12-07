@@ -27,7 +27,8 @@
 
 FDCAN_HandleTypeDef hfdcan1;
 FDCAN_RxHeaderTypeDef hrxcan1;
-static uint8_t * msgdata;
+static uint8_t  msgdata[8];
+uint16_t RPM = 0;
 
 /* FDCAN1 init function */
 void MX_FDCAN1_Init(void)
@@ -138,6 +139,34 @@ void HAL_FDCAN_MspDeInit(FDCAN_HandleTypeDef* fdcanHandle)
 }
 
 /* USER CODE BEGIN 1 */
+/** 
+    Initialize the filter cofig given a project-side configuration
+    @param filter_config A configuration struct created project side, to be used to initialize the filter
+*/
+void FDCAN_Init_FilterConfig(FDCAN_FilterTypeDef filter_config)
+{
+  if (HAL_FDCAN_ConfigFilter(&hfdcan1, &filter_config) != HAL_OK)
+  {
+      Error_Handler();
+  }
+}
+
+/*
+    Initialize notifications for FDCAN1, this allows for the intterupt to start working
+*/
+void FDCAN_Init_Notifications(void)
+{
+    if (HAL_FDCAN_ActivateNotification(&hfdcan1, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0) != HAL_OK)
+    {
+        Error_Handler();
+    }
+}
+
+/**
+    Callback for the FDCAN FIFO0 interrupt. When a frame is received into FIFO 0 this callback will be invoked
+    @param hfdcan pointer to FDCAN structure
+    @param RxFifo0ITs 32-bit address of the interrupt source
+*/
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 {
     if((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET)
@@ -145,13 +174,10 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
         // Retrieve message
         if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &hrxcan1, msgdata) == HAL_OK)
         {
-            // Process received message
-            printf("Received CAN Message - ID: 0x%x, Data: %d\r\n", hrxcan1.Identifier, *msgdata);
-            
-            // Optional: Toggle a LED or set a flag to indicate message received
-            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);  // Assuming user LED is on PA5
+            RPM = (msgdata[0] << 8) | msgdata[1];
+            printf("\r\n");
+            printf("RPM: %d\r\n", RPM);
         }
     }
 }
-
 /* USER CODE END 1 */

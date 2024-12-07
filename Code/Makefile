@@ -218,7 +218,16 @@ clean:
 #######################################
 flash: build/firmware.bin 
 	st-flash --reset write $< 0x8000000
-  
+
+#######################################
+# Serial (Minicom) 
+#######################################
+serial:
+	@echo "Opening Serial Connection..." \
+	&& minicom -D /dev/tty.usbmodem11203 115200 \
+	|| minicom -D /dev/tty.usbmodem11203 115200 \
+	@echo "Failure to open port, incorrect name?"
+	
 #######################################
 # dependencies
 #######################################
