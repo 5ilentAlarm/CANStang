@@ -36,13 +36,15 @@ extern FDCAN_HandleTypeDef hfdcan1;
 
 /* USER CODE BEGIN Private defines */
 extern FDCAN_RxHeaderTypeDef hrxcan1;
+extern uint16_t RPM;
 
 /* USER CODE END Private defines */
 
 void MX_FDCAN1_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+void FDCAN_Init_FilterConfig(FDCAN_FilterTypeDef filter_config);
+void FDCAN_Init_Notifications(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
