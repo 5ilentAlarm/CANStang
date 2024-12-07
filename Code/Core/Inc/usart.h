@@ -1,9 +1,9 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file    fdcan.h
+  * @file    usart.h
   * @brief   This file contains all the function prototypes for
-  *          the fdcan.c file
+  *          the usart.c file
   ******************************************************************************
   * @attention
   *
@@ -18,8 +18,8 @@
   */
 /* USER CODE END Header */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __FDCAN_H__
-#define __FDCAN_H__
+#ifndef __USART_H__
+#define __USART_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,14 +32,13 @@ extern "C" {
 
 /* USER CODE END Includes */
 
-extern FDCAN_HandleTypeDef hfdcan1;
+extern UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN Private defines */
-extern FDCAN_RxHeaderTypeDef hrxcan1;
 
 /* USER CODE END Private defines */
 
-void MX_FDCAN1_Init(void);
+void MX_USART2_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
@@ -49,5 +48,5 @@ void MX_FDCAN1_Init(void);
 }
 #endif
 
-#endif /* __FDCAN_H__ */
+#endif /* __USART_H__ */
 
