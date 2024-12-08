@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "fdcan.h"
+#include "i2c.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -91,6 +92,7 @@ int main(void)
   MX_GPIO_Init();
   MX_FDCAN1_Init();
   MX_USART2_UART_Init();
+  MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
   main_entry_func();
   
