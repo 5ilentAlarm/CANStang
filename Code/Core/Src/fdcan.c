@@ -22,13 +22,13 @@
 #include <stdio.h>
 
 /* USER CODE BEGIN 0 */
+FDCAN_RxHeaderTypeDef hrxcan1;
+static uint8_t  msgdata[8];
+uint16_t RPM = 0;
 
 /* USER CODE END 0 */
 
 FDCAN_HandleTypeDef hfdcan1;
-FDCAN_RxHeaderTypeDef hrxcan1;
-static uint8_t  msgdata[8];
-uint16_t RPM = 0;
 
 /* FDCAN1 init function */
 void MX_FDCAN1_Init(void)

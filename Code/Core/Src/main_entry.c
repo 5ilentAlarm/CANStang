@@ -7,6 +7,8 @@
 #include "usart.h"
 #include <stdio.h>
 #include "stm32g4xx_hal_fdcan.h"
+#include "ssd1306.h"
+#include "i2c.h"
 
 FDCAN_FilterTypeDef sFilterConfig = {
     .IdType = FDCAN_STANDARD_ID,
@@ -32,8 +34,14 @@ void main_entry_func(void)
     FDCAN_Init_Notifications();
     HAL_FDCAN_Start(&hfdcan1);
 
+    /* OLED */
+    ssd1306_Init();
+    ssd1306_Fill(White);
+    ssd1306_UpdateScreen();
 
     start_time = HAL_GetTick();
+
+    ssd1306_DrawPixel(30, 30, White);
     while(1)
     {
         if((HAL_GetTick() - start_time) >= 500)
