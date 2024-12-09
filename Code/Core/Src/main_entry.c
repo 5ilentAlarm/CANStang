@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include "stm32g4xx_hal_fdcan.h"
 #include "ssd1306.h"
+#include "ssd1306_fonts.h"
 #include "i2c.h"
 
 FDCAN_FilterTypeDef sFilterConfig = {
@@ -36,8 +37,6 @@ void main_entry_func(void)
 
     /* OLED */
     ssd1306_Init();
-    ssd1306_Fill(White);
-    ssd1306_UpdateScreen();
 
     start_time = HAL_GetTick();
 
@@ -49,6 +48,17 @@ void main_entry_func(void)
             HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
             start_time = HAL_GetTick();
             printf("RPM in main = %d\r\n", RPM);
+            uint8_t data[6];
+            int x = (128 - (sizeof(data) * 7)) / 2;
+            int y = (64 - 10) / 2; 
+            ssd1306_SetCursor(x, y);
+
+            sprintf(data,"%d",RPM);    
+
+            ssd1306_Fill(Black);
+            ssd1306_UpdateScreen();
+            ssd1306_WriteString(data, Font_7x10, White);
+            ssd1306_UpdateScreen();
         }
     }
 }
