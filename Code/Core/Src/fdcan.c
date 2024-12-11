@@ -22,13 +22,15 @@
 #include <stdio.h>
 
 /* USER CODE BEGIN 0 */
+#include "ssd1306.h"
+#include "ssd1306_fonts.h"
+FDCAN_RxHeaderTypeDef hrxcan1;
+static uint8_t  msgdata[8];
+uint16_t RPM = 0;
 
 /* USER CODE END 0 */
 
 FDCAN_HandleTypeDef hfdcan1;
-FDCAN_RxHeaderTypeDef hrxcan1;
-static uint8_t  msgdata[8];
-uint16_t RPM = 0;
 
 /* FDCAN1 init function */
 void MX_FDCAN1_Init(void)
@@ -174,9 +176,20 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
         // Retrieve message
         if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &hrxcan1, msgdata) == HAL_OK)
         {
+            // uint8_t data[6];
             RPM = (msgdata[0] << 8) | msgdata[1];
-            printf("\r\n");
+            // printf("\r\n");
             printf("RPM: %d\r\n", RPM);
+            // int x = (128 - (sizeof(data) * 16)) / 2;
+            // int y = (64 - 26) / 2; 
+            // ssd1306_SetCursor(x, y);
+
+            // sprintf(data,"%d",RPM);    
+
+            // ssd1306_Fill(Black);
+            // ssd1306_UpdateScreen();
+            // ssd1306_WriteString(data, Font_16x26, White);
+            // ssd1306_UpdateScreen();
         }
     }
 }
