@@ -28,9 +28,6 @@ static uint32_t start_time;
 
 void main_entry_func(void)
 {
-    /* Intitialize pins for on-board LED */
-    init_user_led();
-
     /* UART peripheral settings */
     HAL_UART_Init(&huart2);
 
@@ -41,32 +38,28 @@ void main_entry_func(void)
 
     /* OLED */
     ssd1306_Init();
+    // uint8_t data[6];
 
-    start_time = HAL_GetTick();
-    uint8_t data[6];
+    /* LED Settings */
+    LED_Set_Color(0u, LED_COLOR_GREEN);
 
-    // ssd1306_DrawPixel(30, 30, White);
     while(1)
     {
-        if((HAL_GetTick() - start_time) >= 500)
+        uint16_t Div_RPM = 0;
+        Div_RPM = RPM % 1000;
+        if(Div_RPM < 333)
         {
-            HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-            start_time = HAL_GetTick();
-            // printf("RPM in main = %d\r\n", RPM);
-            
+            LED_Set_Color(0u, LED_COLOR_GREEN);
         }
-        int x = (128 - (sizeof(data) * 16)) / 2;
-        int y = (64 - 26) / 2; 
-        ssd1306_SetCursor(x, y);
-
-        sprintf(data,"%d",RPM);    
-
-        ssd1306_Fill(Black);
-        ssd1306_UpdateScreen();
-        ssd1306_WriteString(data, Font_16x26, White);
-        ssd1306_UpdateScreen();
-        // Set_Brightness(0);
-        Set_LED(0, 100, 100, 0);
+        else if (Div_RPM < 665)
+        {
+            LED_Set_Color(0u, LED_COLOR_YELLOW);
+        }
+        else
+        {
+            LED_Set_Color(0u, LED_COLOR_RED);
+        }
+        ssd1306_Update_Rpm();
 
         WS2812_Send();
     }

@@ -2,6 +2,9 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>  // For memcpy
+#include "fdcan.h"
+#include <stdio.h>
+#include "ssd1306_fonts.h"
 
 #if defined(SSD1306_USE_I2C)
 
@@ -592,4 +595,19 @@ void ssd1306_SetDisplayOn(const uint8_t on) {
 
 uint8_t ssd1306_GetDisplayOn() {
     return SSD1306.DisplayOn;
+}
+
+void ssd1306_Update_Rpm(void)
+{
+    uint8_t data[6]; /* Amount of characters on screen (including NULL) */
+    int x = (128 - (sizeof(data) * 16)) / 2;
+    int y = (64 - 26) / 2; 
+    ssd1306_SetCursor(x, y);
+
+    sprintf(data,"%d",RPM);    
+
+    ssd1306_Fill(Black);
+    ssd1306_UpdateScreen();
+    ssd1306_WriteString(data, Font_16x26, White);
+    ssd1306_UpdateScreen();
 }

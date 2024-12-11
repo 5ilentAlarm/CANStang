@@ -4,11 +4,12 @@
 #include <math.h> /* Please find a way to remove this */
 #include "dma.h"
 #include "tim.h"
+ 
 
 bool datasentflag = 0;
 
-uint8_t LED_Data[MAX_LED][4];
-uint16_t pwmData[(24*MAX_LED)+50];
+static uint8_t LED_Data[MAX_LED][4];
+static uint16_t pwmData[(24 * MAX_LED) + 50];
 
 /**
  * Initialize the user LED on the nucleo STM32G431RB, located on pin PA5
@@ -51,18 +52,16 @@ void WS2812_Send (void)
 
 		for (int i=23; i>=0; i--)
 		{
-			if (color&(1<<i))
+			if (color & (1<<i))
 			{
 				pwmData[index] = 80;  // 2/3 of 90
 			}
-
 			else 
             {
                 pwmData[index] = 40;  // 1/3 of 90
             }
 			index++;
 		}
-
 	}
 
 	for (int i=0; i<50; i++)
@@ -76,10 +75,36 @@ void WS2812_Send (void)
 	datasentflag = 0;
 }
 
-void Set_LED (int LEDnum, int Red, int Green, int Blue)
+/**
+    Shift light only uses three colors, if more colors are wanted then they can be set here. 
+ */
+void LED_Set_Color(uint8_t Led_Index, Led_Color_T Color)
 {
-	LED_Data[LEDnum][0] = LEDnum;
-	LED_Data[LEDnum][1] = Green;
-	LED_Data[LEDnum][2] = Red;
-	LED_Data[LEDnum][3] = Blue;
+    uint8_t R, G, B;
+    switch(Color)
+    {
+        case(LED_COLOR_GREEN):
+            R = 0u;
+            G = 150;
+            B = 0u;
+            break;
+        case(LED_COLOR_RED):
+            R = 150;
+            G = 0u;
+            B = 0u;
+            break;
+        case(LED_COLOR_YELLOW):
+            R = 150u;
+            G = 150u;
+            B = 0u;
+            break;
+        default:
+            R = 0;
+            G = 0;
+            B = 0;
+    }
+    LED_Data[Led_Index][0] = Led_Index;
+    LED_Data[Led_Index][1] = G;
+	LED_Data[Led_Index][2] = R;
+	LED_Data[Led_Index][3] = B;
 }
