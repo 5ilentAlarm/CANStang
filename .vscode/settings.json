@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "gpio.h": "c",
-        "fdcan.h": "c"
+        "fdcan.h": "c",
+        "stm32g4xx_hal.h": "c"
     }
 }

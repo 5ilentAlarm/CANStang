@@ -10,6 +10,10 @@
 #include "ssd1306.h"
 #include "ssd1306_fonts.h"
 #include "i2c.h"
+#include "dma.h"
+#include <tim.h>
+#include <stdbool.h>
+
 
 FDCAN_FilterTypeDef sFilterConfig = {
     .IdType = FDCAN_STANDARD_ID,
@@ -41,7 +45,7 @@ void main_entry_func(void)
     start_time = HAL_GetTick();
     uint8_t data[6];
 
-    ssd1306_DrawPixel(30, 30, White);
+    // ssd1306_DrawPixel(30, 30, White);
     while(1)
     {
         if((HAL_GetTick() - start_time) >= 500)
@@ -61,5 +65,9 @@ void main_entry_func(void)
         ssd1306_UpdateScreen();
         ssd1306_WriteString(data, Font_16x26, White);
         ssd1306_UpdateScreen();
+        // Set_Brightness(0);
+        Set_LED(0, 100, 100, 0);
+
+        WS2812_Send();
     }
 }
