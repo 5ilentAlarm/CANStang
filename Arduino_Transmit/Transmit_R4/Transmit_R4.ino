@@ -89,5 +89,5 @@ void loop()
 
   RPM++;
 
-  delay(100);
+  delay(50);
 }
