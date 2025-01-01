@@ -3,13 +3,11 @@
 #include "gpio.h"
 #include "led.h"
 #include "fdcan.h"
-#include "stm32g4xx_hal.h"
 #include "usart.h"
-#include <stdio.h>
-#include "stm32g4xx_hal_fdcan.h"
+// #include <stdio.h> for debug
 #include "ssd1306.h"
-#include "ssd1306_fonts.h"
-#include "i2c.h"
+#include <stdbool.h>
+
 
 FDCAN_FilterTypeDef sFilterConfig = {
     .IdType = FDCAN_STANDARD_ID,
@@ -20,13 +18,11 @@ FDCAN_FilterTypeDef sFilterConfig = {
     .FilterID2 = 0x0
 };
 
-static uint32_t start_time;
-
-void main_entry_func(void)
+/**
+    Initialize peripherals, globals, etc.
+*/
+void main_init(void)
 {
-    /* Intitialize pins for on-board LED */
-    init_user_led();
-
     /* UART peripheral settings */
     HAL_UART_Init(&huart2);
 
@@ -38,28 +34,21 @@ void main_entry_func(void)
     /* OLED */
     ssd1306_Init();
 
-    start_time = HAL_GetTick();
-    uint8_t data[6];
+    /* Initialize LED to green */
+    uint8_t led_index = 0u;
+    LED_Set_Color(led_index, LED_COLOR_GREEN);
+}
 
-    ssd1306_DrawPixel(30, 30, White);
+/** 
+    Main runtime 'task'
+*/
+void main_entry_func(void)
+{
+    main_init();
+
     while(1)
     {
-        if((HAL_GetTick() - start_time) >= 500)
-        {
-            HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-            start_time = HAL_GetTick();
-            // printf("RPM in main = %d\r\n", RPM);
-            
-        }
-        int x = (128 - (sizeof(data) * 16)) / 2;
-        int y = (64 - 26) / 2; 
-        ssd1306_SetCursor(x, y);
-
-        sprintf(data,"%d",RPM);    
-
-        ssd1306_Fill(Black);
-        ssd1306_UpdateScreen();
-        ssd1306_WriteString(data, Font_16x26, White);
-        ssd1306_UpdateScreen();
+        LED_Determine_Color();
+        ssd1306_Update_Rpm();
     }
 }
