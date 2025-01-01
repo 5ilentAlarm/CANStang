@@ -9,6 +9,7 @@ A list of the main parts of the system
 2. Waveshare SN65HVD230 Can-transciever
 3. SSD1306 OLED Screen
 4. WS2812b RGB LED(s)
+5. Reflective HUD screen
 
 # Architecture
 <img src="images/High-level-Architecture.png" alt="Car" width="600"/>
