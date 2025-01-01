@@ -165,10 +165,13 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 }
 
 /* USER CODE BEGIN 1 */
+/**
+  Callback for when a PWM Pulse is finished, will set flag once finished 
+*/
 void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 {
 	HAL_TIM_PWM_Stop_DMA(&htim3, TIM_CHANNEL_1);
-	datasentflag=1;
+	Data_Sent_Flag=1;
 }
 
 /* USER CODE END 1 */

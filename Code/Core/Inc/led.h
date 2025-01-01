@@ -11,7 +11,7 @@
 #define USE_BRIGHTNESS 0
 #define PI 3.14159265
 
-extern bool datasentflag;
+extern bool Data_Sent_Flag;
 
 typedef enum
 {

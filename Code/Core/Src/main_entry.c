@@ -38,9 +38,8 @@ void main_entry_func(void)
 
     /* OLED */
     ssd1306_Init();
-    // uint8_t data[6];
 
-    /* LED Settings */
+    /* Initialize LED to green */
     LED_Set_Color(0u, LED_COLOR_GREEN);
 
     while(1)
