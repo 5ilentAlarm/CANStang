@@ -3,6 +3,7 @@
 #include "stdbool.h"
 #include "dma.h"
 #include "tim.h"
+#include "fdcan.h"
  
 #define RGB_BYTES (3u)
 #define RESET_PULSE_LENGTH (50u)
@@ -43,7 +44,7 @@ void blink_user_led(uint32_t delay)
 /**
     Uses the PWM/DMA controller to set the LED configuration
 */
-void WS2812_Send (void)
+void WS2812_Transmit(void)
 {
 	uint8_t index=0;
 	uint32_t color;
@@ -113,4 +114,23 @@ void LED_Set_Color(uint8_t Led_Index, Led_Color_T Color)
     Led_Data[Led_Index][0] = G;
 	Led_Data[Led_Index][1] = R;
 	Led_Data[Led_Index][2] = B;
+}
+
+void LED_Determine_Color(void)
+{
+    uint16_t Div_RPM = 0;
+    Div_RPM = RPM % 1000;
+    if(Div_RPM < 333)
+    {
+        LED_Set_Color(0u, LED_COLOR_GREEN);
+    }
+    else if (Div_RPM < 665)
+    {
+        LED_Set_Color(0u, LED_COLOR_YELLOW);
+    }
+    else
+    {
+        LED_Set_Color(0u, LED_COLOR_RED);
+    }
+    WS2812_Transmit();
 }

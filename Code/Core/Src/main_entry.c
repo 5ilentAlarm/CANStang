@@ -3,15 +3,9 @@
 #include "gpio.h"
 #include "led.h"
 #include "fdcan.h"
-#include "stm32g4xx_hal.h"
 #include "usart.h"
-#include <stdio.h>
-#include "stm32g4xx_hal_fdcan.h"
+// #include <stdio.h> for debug
 #include "ssd1306.h"
-#include "ssd1306_fonts.h"
-#include "i2c.h"
-#include "dma.h"
-#include <tim.h>
 #include <stdbool.h>
 
 
@@ -24,9 +18,10 @@ FDCAN_FilterTypeDef sFilterConfig = {
     .FilterID2 = 0x0
 };
 
-static uint32_t start_time;
-
-void main_entry_func(void)
+/**
+    Initialize peripherals, globals, etc.
+*/
+void main_init(void)
 {
     /* UART peripheral settings */
     HAL_UART_Init(&huart2);
@@ -40,26 +35,20 @@ void main_entry_func(void)
     ssd1306_Init();
 
     /* Initialize LED to green */
-    LED_Set_Color(0u, LED_COLOR_GREEN);
+    uint8_t led_index = 0u;
+    LED_Set_Color(led_index, LED_COLOR_GREEN);
+}
+
+/** 
+    Main runtime 'task'
+*/
+void main_entry_func(void)
+{
+    main_init();
 
     while(1)
     {
-        uint16_t Div_RPM = 0;
-        Div_RPM = RPM % 1000;
-        if(Div_RPM < 333)
-        {
-            LED_Set_Color(0u, LED_COLOR_GREEN);
-        }
-        else if (Div_RPM < 665)
-        {
-            LED_Set_Color(0u, LED_COLOR_YELLOW);
-        }
-        else
-        {
-            LED_Set_Color(0u, LED_COLOR_RED);
-        }
+        LED_Determine_Color();
         ssd1306_Update_Rpm();
-
-        WS2812_Send();
     }
 }

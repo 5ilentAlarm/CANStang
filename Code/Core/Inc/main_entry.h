@@ -2,5 +2,6 @@
 #define MAIN_ENTRY_H
 
 void main_entry_func(void);
+void main_init(void);
 
 #endif
