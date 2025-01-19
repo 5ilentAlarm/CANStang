@@ -1,6 +1,7 @@
 #define CLAY_IMPLEMENTATION
 #include "clay.h"
 #include "clay_renderer_raylib.c"
+#include "dirtest.h"
 
 const uint32_t FONT_ID_BODY_24 = 0;
 const uint32_t FONT_ID_BODY_16 = 1;
@@ -191,6 +192,7 @@ void UpdateDrawFrame(void)
     double currentTime = GetTime();
     Clay_RenderCommandArray renderCommands = CreateLayout();
     printf("layout time: %f microseconds\n", (GetTime() - currentTime) * 1000 * 1000);
+    test();
     // RENDERING ---------------------------------
 //    currentTime = GetTime();
     BeginDrawing();

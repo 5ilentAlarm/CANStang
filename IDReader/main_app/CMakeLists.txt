@@ -19,10 +19,12 @@ FetchContent_Declare(
 set(includedirectories
   "include/clay"
   "include/raylib"
+  "include/dir_test"
 )
 
 set(executables
   "include/clay/multi-compilation-unit.c"
+  "include/dir_test/dirtest.c"
 )
 
 FetchContent_MakeAvailable(raylib)
