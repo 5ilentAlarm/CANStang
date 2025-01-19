@@ -16,14 +16,21 @@ FetchContent_Declare(
     GIT_SHALLOW TRUE
 )
 
+set(includedirectories
+  "include/clay"
+  "include/raylib"
+)
+
+set(executables
+  "include/clay/multi-compilation-unit.c"
+)
+
 FetchContent_MakeAvailable(raylib)
 
-# set(MY_PROJ CANU_I)
-
-add_executable(CANU_I main.c clay/multi-compilation-unit.c)
+add_executable(CANU_I main.c ${executables})
 
 target_compile_options(CANU_I PUBLIC)
-target_include_directories(CANU_I PUBLIC raylib/ clay/)
+target_include_directories(CANU_I PUBLIC ${includedirectories})
 
 target_link_libraries(CANU_I PUBLIC raylib)
 if(MSVC)
