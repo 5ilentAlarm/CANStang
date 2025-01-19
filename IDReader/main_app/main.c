@@ -1,6 +1,6 @@
 #define CLAY_IMPLEMENTATION
-#include "../../clay.h"
-#include "../../renderers/raylib/clay_renderer_raylib.c"
+#include "clay.h"
+#include "clay_renderer_raylib.c"
 
 const uint32_t FONT_ID_BODY_24 = 0;
 const uint32_t FONT_ID_BODY_16 = 1;
@@ -249,4 +249,4 @@ int main(void) {
         UpdateDrawFrame();
     }
     return 0;
-}
+}   

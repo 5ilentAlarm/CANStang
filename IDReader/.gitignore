@@ -1,0 +1,8 @@
+main_app/CMakeCache.txt
+main_app/CMakeFiles/
+main_app/CPackConfig.cmake
+main_app/CPackSourceConfig.cmake
+main_app/Makefile
+main_app/_deps/
+main_app/cmake_install.cmake
+main_app/main_app/

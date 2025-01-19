@@ -1,4 +1,4 @@
-#include "../../clay.h"
+#include "clay.h"
 
 // NOTE: This file only exists to make sure that clay works when included in multiple translation units.
 
