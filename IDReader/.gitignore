@@ -6,3 +6,4 @@ main_app/Makefile
 main_app/_deps/
 main_app/cmake_install.cmake
 main_app/main_app/
+build/

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.27)
-project(clay_examples_raylib_sidebar_scrolling_container C)
+project(CANU_I C)
 set(CMAKE_C_STANDARD 99)
 
 # Adding Raylib
@@ -18,12 +18,14 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(raylib)
 
-add_executable(clay_examples_raylib_sidebar_scrolling_container main.c multi-compilation-unit.c)
+# set(MY_PROJ CANU_I)
 
-target_compile_options(clay_examples_raylib_sidebar_scrolling_container PUBLIC)
-target_include_directories(clay_examples_raylib_sidebar_scrolling_container PUBLIC .)
+add_executable(CANU_I main.c multi-compilation-unit.c)
 
-target_link_libraries(clay_examples_raylib_sidebar_scrolling_container PUBLIC raylib)
+target_compile_options(CANU_I PUBLIC)
+target_include_directories(CANU_I PUBLIC .)
+
+target_link_libraries(CANU_I PUBLIC raylib)
 if(MSVC)
   set(CMAKE_C_FLAGS_DEBUG "/D CLAY_DEBUG")
 else()
@@ -32,7 +34,7 @@ else()
 endif()
 
 add_custom_command(
-        TARGET clay_examples_raylib_sidebar_scrolling_container POST_BUILD
+        TARGET CANU_I POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_CURRENT_SOURCE_DIR}/resources
         ${CMAKE_CURRENT_BINARY_DIR}/resources)
