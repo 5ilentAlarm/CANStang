@@ -20,10 +20,10 @@ FetchContent_MakeAvailable(raylib)
 
 # set(MY_PROJ CANU_I)
 
-add_executable(CANU_I main.c multi-compilation-unit.c)
+add_executable(CANU_I main.c clay/multi-compilation-unit.c)
 
 target_compile_options(CANU_I PUBLIC)
-target_include_directories(CANU_I PUBLIC .)
+target_include_directories(CANU_I PUBLIC raylib/ clay/)
 
 target_link_libraries(CANU_I PUBLIC raylib)
 if(MSVC)
