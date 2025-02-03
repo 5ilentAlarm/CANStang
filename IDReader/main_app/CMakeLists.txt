@@ -20,11 +20,13 @@ set(includedirectories
   "include/clay"
   "include/raylib"
   "include/dir_test"
+  "include/serial_read"
 )
 
 set(executables
   "include/clay/multi-compilation-unit.c"
   "include/dir_test/dirtest.c"
+  "include/serial_read/serial_read.c"
 )
 
 FetchContent_MakeAvailable(raylib)
